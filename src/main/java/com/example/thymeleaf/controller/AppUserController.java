@@ -8,7 +8,7 @@ import com.example.thymeleaf.event.RegistrationCompleteEvent;
 import com.example.thymeleaf.model.PasswordModel;
 import com.example.thymeleaf.model.RegistrationRequest;
 import com.example.thymeleaf.services.App_User_Service;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class AppUserController {
 

@@ -10,6 +10,7 @@ import com.example.thymeleaf.repositories.AppUserRepository;
 import com.example.thymeleaf.repositories.ConfirmationTokenRepository;
 import com.example.thymeleaf.repositories.PasswordResetTokenRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,7 @@ import java.util.*;
 import static com.example.thymeleaf.entity.enums.App_User_Role.*;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
 public class App_User_ServiceImpl implements App_User_Service, UserDetailsService {
 
