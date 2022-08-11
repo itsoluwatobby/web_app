@@ -3,6 +3,7 @@ package com.example.thymeleaf.services;
 import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.entity.ConfirmationToken;
 import com.example.thymeleaf.entity.PasswordResetToken;
+import com.example.thymeleaf.entity.enums.App_User_Role;
 import com.example.thymeleaf.event.MailBody;
 import com.example.thymeleaf.model.RegistrationRequest;
 import com.example.thymeleaf.repositories.AppUserRepository;
@@ -30,6 +31,7 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
     private ConfirmationTokenRepository confirmationTokenRepository;
     private PasswordEncoder encoder;
     private MailBody validEmail;
+    private App_User_Role app_user_role;
     private PasswordResetTokenRepository passwordResetTokenRepository;
 
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -41,9 +43,7 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
         else{
             log.info("User {} found in database", app_users);
         }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        app_users.getApp_user_role().forEach(role -> {authorities.add(new SimpleGrantedAuthority(role.name()));
-        });
+        Collection<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(app_user_role.name()));
         return new org.springframework.security.core.userdetails.User(app_users.getEmail(), app_users.getPassword(), authorities);
     }
     @Override
@@ -54,7 +54,7 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
         }
         else {
             App_Users app_users = new App_Users(modelRequest.getFirstName(), modelRequest.getLastName(),
-                    modelRequest.getEmail(), encoder.encode(modelRequest.getPassword()), Collections.singleton(USER));
+                    modelRequest.getEmail(), encoder.encode(modelRequest.getPassword()), USER);
             appUserRepository.save(app_users);
             return app_users;
         }

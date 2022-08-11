@@ -28,13 +28,13 @@ public class App_Users {
     private String email;
     private String password;
     @Enumerated
-    private Collection<App_User_Role> app_user_role = new ArrayList<>();
+    private App_User_Role app_user_role;
 
     private boolean isEnabled = false;
 
     public App_Users(String firstName, String lastName,
                      String email, String password,
-                     Collection<App_User_Role> app_user_role) {
+                     App_User_Role app_user_role) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
