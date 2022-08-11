@@ -2,6 +2,7 @@ package com.example.thymeleaf.services;
 
 import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.entity.ConfirmationToken;
+import com.example.thymeleaf.entity.Custom_App_Users;
 import com.example.thymeleaf.entity.PasswordResetToken;
 import com.example.thymeleaf.entity.enums.App_User_Role;
 import com.example.thymeleaf.event.MailBody;
@@ -9,7 +10,6 @@ import com.example.thymeleaf.model.RegistrationRequest;
 import com.example.thymeleaf.repositories.AppUserRepository;
 import com.example.thymeleaf.repositories.ConfirmationTokenRepository;
 import com.example.thymeleaf.repositories.PasswordResetTokenRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,7 +26,7 @@ import static com.example.thymeleaf.entity.enums.App_User_Role.*;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class App_User_ServiceImpl implements App_User_Service, UserDetailsService {
+public class App_User_ServiceImpl implements App_User_Service, UserDetailsService{
 
     private AppUserRepository appUserRepository;
     private ConfirmationTokenRepository confirmationTokenRepository;
@@ -35,17 +35,17 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
     private App_User_Role app_user_role;
     private PasswordResetTokenRepository passwordResetTokenRepository;
 
+    @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-         App_Users app_users = appUserRepository.findByUsername(email);
+         App_Users app_users = appUserRepository.findByEmail(email);
         if(app_users == null) {
-            log.error("User {} not found in database", app_users);
+            log.error("User not found in database");
             throw new UsernameNotFoundException("User not found");
         }
         else{
             log.info("User {} found in database", app_users);
         }
-        Collection<SimpleGrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority(app_user_role.name()));
-        return new org.springframework.security.core.userdetails.User(app_users.getEmail(), app_users.getPassword(), authorities);
+        return new Custom_App_Users(app_users);
     }
     @Override
     public App_Users registerNewUser(RegistrationRequest modelRequest) {
@@ -100,7 +100,7 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
 
     @Override
     public App_Users findUserByEmail(String email) {
-        App_Users app_users = appUserRepository.findByUsername(email);
+        App_Users app_users = appUserRepository.findByEmail(email);
         if (app_users == null) {
             throw new UsernameNotFoundException("User with email not found");
         }

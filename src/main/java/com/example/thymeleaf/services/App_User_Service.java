@@ -7,6 +7,7 @@ import com.example.thymeleaf.model.RegistrationRequest;
 import java.util.Optional;
 
 public interface App_User_Service {
+
     App_Users registerNewUser(RegistrationRequest modelRequest);
 
     void saveTokenWithUser(App_Users app_users, String token);
