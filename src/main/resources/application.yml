@@ -1,0 +1,34 @@
+
+server:
+  port: 9190
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  datasource:
+    username: postgres
+    password: carpenter1
+    url: jdbc:postgresql://localhost:5432/react_app
+  jpa:
+    hibernate:
+      ddl-auto : update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: akintobby@gmail.com
+    password: orhcsmthedurofea
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          ssl:
+            trust: smtp.gmail.com
