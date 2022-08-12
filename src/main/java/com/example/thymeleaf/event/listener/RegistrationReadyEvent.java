@@ -2,7 +2,6 @@ package com.example.thymeleaf.event.listener;
 
 import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.event.EmailSender;
-import com.example.thymeleaf.event.MailBody;
 import com.example.thymeleaf.event.RegistrationCompleteEvent;
 import com.example.thymeleaf.services.App_User_Service;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,6 @@ public class RegistrationReadyEvent implements ApplicationListener<RegistrationC
 
     private App_User_Service app_user_service;
     private EmailSender emailSender;
-    private MailBody sendBody;
 
     @Override
     public void onApplicationEvent(RegistrationCompleteEvent event) {
@@ -32,7 +30,7 @@ public class RegistrationReadyEvent implements ApplicationListener<RegistrationC
         String url = event.getApplicationUrl()+"/verifyRegistration?token="+token;
 
         emailSender.sendMailTo(
-                app_users.getEmail(), "Open To Verify Account", sendBody.mailBody(url));
+                app_users.getEmail(), "Open To Verify Account", emailSender.mailBody(url));
 
         log.info("Click the link provided to verify your account: "+ url);
         log.info("Mail sent successfully");

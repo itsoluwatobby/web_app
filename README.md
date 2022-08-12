@@ -23,5 +23,5 @@ ___
 - [x] Database using Postgresql
 
 
-### for this demo, the verification token will also be provided in the console likewise password resst token
+### for this demo, the verification token will also be provided in the console likewise password reset tokens
 

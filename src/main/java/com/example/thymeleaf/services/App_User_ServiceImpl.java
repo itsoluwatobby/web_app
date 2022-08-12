@@ -4,7 +4,7 @@ import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.entity.ConfirmationToken;
 import com.example.thymeleaf.entity.Custom_App_Users;
 import com.example.thymeleaf.entity.PasswordResetToken;
-import com.example.thymeleaf.event.MailBody;
+import com.example.thymeleaf.event.EmailSender;
 import com.example.thymeleaf.model.RegistrationRequest;
 import com.example.thymeleaf.repositories.AppUserRepository;
 import com.example.thymeleaf.repositories.ConfirmationTokenRepository;
@@ -29,7 +29,7 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
     private AppUserRepository appUserRepository;
     private ConfirmationTokenRepository confirmationTokenRepository;
     private PasswordEncoder encoder;
-    private MailBody validEmail;
+    private EmailSender validEmail;
     private PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Override
@@ -118,7 +118,6 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
             return "invalid";
         }
 
-        App_Users app_users = passwordResetToken.getApp_users();
         Calendar calendar = Calendar.getInstance();
 
         long tokenExpiredTime = passwordResetToken.getExpiresAt().getTime() - calendar.getTime().getTime();

@@ -3,7 +3,6 @@ package com.example.thymeleaf.controller;
 import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.entity.ConfirmationToken;
 import com.example.thymeleaf.event.EmailSender;
-import com.example.thymeleaf.event.MailBody;
 import com.example.thymeleaf.event.RegistrationCompleteEvent;
 import com.example.thymeleaf.model.PasswordModel;
 import com.example.thymeleaf.model.RegistrationRequest;
@@ -21,7 +20,6 @@ import java.util.UUID;
 public class AppUserController {
 
     private EmailSender emailSender;
-    private MailBody sendBody;
     private App_User_Service app_user_service;
     private ApplicationEventPublisher publisher;
 
@@ -100,7 +98,7 @@ public class AppUserController {
         String url = applicationUrl+"/saveNewPassword?token="+token;
 
         emailSender.sendMailTo(
-                app_users.getEmail(), "Open To Verify Account", sendBody.mailBody(url));
+                app_users.getEmail(), "Open To Verify Account", emailSender.mailBody(url));
 
         log.info("Click the link provided to reset your password: "+ url);
         log.info("Mail sent successfully");
@@ -111,7 +109,7 @@ public class AppUserController {
         String url = applicationUrl+"/resendVerifyToken?token="+ confirmationToken.getToken();
 
         emailSender.sendMailTo(
-                app_user.getEmail(), "Open To Verify Account", sendBody.mailBody(url));
+                app_user.getEmail(), "Open To Verify Account", emailSender.mailBody(url));
 
         log.info("Click the link provided to verify your account: "+ url);
         log.info("Mail sent successfully");

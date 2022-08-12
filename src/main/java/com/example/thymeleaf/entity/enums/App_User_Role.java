@@ -1,6 +1,5 @@
 package com.example.thymeleaf.entity.enums;
 
-import com.google.common.collect.Sets;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,7 +18,7 @@ public enum App_User_Role {
     USER(newHashSet()),
     ADMIN(newHashSet(APPLICATION_READ, APPLICATION_WRITE));
 
-    private Set<AppPermission> appPermission;
+    private final Set<AppPermission> appPermission;
 
     private Set<SimpleGrantedAuthority> getGrantedAuthority() {
         Set<SimpleGrantedAuthority> permissions = getAppPermission().stream()
