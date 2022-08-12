@@ -5,7 +5,6 @@ import com.example.thymeleaf.entity.App_Users;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 
 @Getter
 @Setter

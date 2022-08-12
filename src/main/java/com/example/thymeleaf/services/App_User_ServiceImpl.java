@@ -16,11 +16,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
 import static com.example.thymeleaf.entity.enums.App_User_Role.*;
 
+@Transactional
 @Service @AllArgsConstructor @Slf4j
 public class App_User_ServiceImpl implements App_User_Service, UserDetailsService{
 
