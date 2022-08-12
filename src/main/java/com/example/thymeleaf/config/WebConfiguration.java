@@ -23,7 +23,7 @@ import static com.example.thymeleaf.entity.enums.App_User_Role.USER;
 @Configuration @EnableWebSecurity
 public class WebConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String[] WHITE_LISTED_URLS = {"/", "/hello", "/js/**", "/css/**", "/registration",
+    private static final String[] WHITE_LISTED_URLS = {"/", "/js/**", "/css/**", "/registration",
             "/verifyRegistration", "/resendVerifyToken", "/resetPassword", "/saveNewPassword", "/changePassword"};
 
     @Autowired
@@ -33,7 +33,8 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests()
-                .antMatchers(WHITE_LISTED_URLS).hasRole(USER.name())
+                .antMatchers(WHITE_LISTED_URLS).permitAll()
+                .antMatchers("/hello").hasRole(USER.name())
                 .anyRequest()
                 .authenticated()
                 .and()
