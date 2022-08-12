@@ -4,15 +4,13 @@ import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.entity.ConfirmationToken;
 import com.example.thymeleaf.entity.Custom_App_Users;
 import com.example.thymeleaf.entity.PasswordResetToken;
-import com.example.thymeleaf.entity.enums.App_User_Role;
 import com.example.thymeleaf.event.MailBody;
 import com.example.thymeleaf.model.RegistrationRequest;
 import com.example.thymeleaf.repositories.AppUserRepository;
 import com.example.thymeleaf.repositories.ConfirmationTokenRepository;
 import com.example.thymeleaf.repositories.PasswordResetTokenRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,16 +21,13 @@ import java.util.*;
 
 import static com.example.thymeleaf.entity.enums.App_User_Role.*;
 
-@Service
-@RequiredArgsConstructor
-@Slf4j
+@Service @AllArgsConstructor @Slf4j
 public class App_User_ServiceImpl implements App_User_Service, UserDetailsService{
 
     private AppUserRepository appUserRepository;
     private ConfirmationTokenRepository confirmationTokenRepository;
     private PasswordEncoder encoder;
     private MailBody validEmail;
-    private App_User_Role app_user_role;
     private PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Override
@@ -49,8 +44,9 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
     }
     @Override
     public App_Users registerNewUser(RegistrationRequest modelRequest) {
-        boolean testEmail = validEmail.validateEmail(modelRequest.getEmail());
-        if(!testEmail) {
+        boolean valid = validEmail.validateEmail(modelRequest.getEmail());
+        if(!valid) {
+            log.info("Invalid email address");
             throw new IllegalStateException(String.format("%s is not a valid email address", modelRequest.getEmail()));
         }
         else {
