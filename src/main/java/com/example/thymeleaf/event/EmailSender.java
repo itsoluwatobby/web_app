@@ -63,4 +63,17 @@ public class EmailSender {
                         "</div>"
         );
     }
+
+    public String resetPassword(String url) {
+        return (
+                "<div>" +
+                        "<center style='display:inline-block;'><h1 style='background-color:lightgrey; border-radius:3px; border:none" +
+                        "'>You made a request to change your password</h1><center>" +
+                        "<br />"+
+                        "<p>Hi</p>"+
+                        "<p>Kindly tap the verification link below to change your password</p>"+
+                        "<br/>"+ url+
+                "</div>"
+        );
+    }
 }

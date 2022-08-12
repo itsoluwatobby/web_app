@@ -98,7 +98,7 @@ public class AppUserController {
         String url = applicationUrl+"/saveNewPassword?token="+token;
 
         emailSender.sendMailTo(
-                app_users.getEmail(), "Open To Verify Account", emailSender.mailBody(url));
+                app_users.getEmail(), "Open To Verify Account", emailSender.resetPassword(url));
 
         log.info("Click the link provided to reset your password: "+ url);
         log.info("Mail sent successfully");

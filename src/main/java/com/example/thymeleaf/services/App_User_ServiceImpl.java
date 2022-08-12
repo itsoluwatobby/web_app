@@ -40,7 +40,7 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
             throw new UsernameNotFoundException("User not found");
         }
         else{
-            log.info("User {} found in database", app_users);
+            log.info("User {} found in database", app_users.getEmail());
         }
         return new Custom_App_Users(app_users);
     }
