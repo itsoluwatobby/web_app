@@ -118,4 +118,9 @@ public class AppUserController {
     private String applicationUrl(HttpServletRequest request) {
         return "http://" + request.getServerName() +":"+ request.getServerPort()+request.getContextPath();
     }
+
+    @GetMapping("/")
+    public String defaultPage() {
+        return "WELCOME TO THE DEFAULT PAGE";
+    }
 }

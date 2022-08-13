@@ -47,13 +47,21 @@ public class App_User_ServiceImpl implements App_User_Service, UserDetailsServic
     @Override
     public App_Users registerNewUser(RegistrationRequest modelRequest) {
         boolean valid = validEmail.validateEmail(modelRequest.getEmail());
+        App_Users emailAddress = appUserRepository.findByEmail(modelRequest.getEmail());
+
         if(!valid) {
             log.info("Invalid email address");
             throw new IllegalStateException(String.format("%s is not a valid email address", modelRequest.getEmail()));
         }
+
+        else if(emailAddress != null) {
+            throw new IllegalStateException("User already exist");
+        }
+
         else {
             App_Users app_users = new App_Users(modelRequest.getFirstName(), modelRequest.getLastName(),
                     modelRequest.getEmail(), encoder.encode(modelRequest.getPassword()), USER);
+
             appUserRepository.save(app_users);
             return app_users;
         }

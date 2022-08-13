@@ -23,7 +23,7 @@ public class App_Users {
     @Column(name = "Email_Address")
     private String email;
     private String password;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private App_User_Role app_user_role;
 
     private boolean isEnabled = false;
