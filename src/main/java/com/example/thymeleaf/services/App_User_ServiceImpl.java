@@ -4,6 +4,7 @@ import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.entity.ConfirmationToken;
 import com.example.thymeleaf.entity.Custom_App_Users;
 import com.example.thymeleaf.entity.PasswordResetToken;
+import com.example.thymeleaf.entity.enums.AppPermission;
 import com.example.thymeleaf.event.EmailSender;
 import com.example.thymeleaf.model.RegistrationRequest;
 import com.example.thymeleaf.repositories.AppUserRepository;

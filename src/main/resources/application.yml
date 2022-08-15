@@ -8,27 +8,27 @@ server:
 spring:
   datasource:
     username: postgres
-    password: carpenter1
+    password:
     url: jdbc:postgresql://localhost:5432/react_app
   jpa:
     hibernate:
-      ddl-auto : create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: akintobby@gmail.com
-    password: orhcsmthedurofea
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          ssl:
-            trust: smtp.gmail.com
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: akintobby@gmail.com
+#    password:
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#            required: true
+#          ssl:
+#            trust: smtp.gmail.com

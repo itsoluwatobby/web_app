@@ -2,7 +2,7 @@ package com.example.thymeleaf.controller;
 
 import com.example.thymeleaf.entity.App_Users;
 import com.example.thymeleaf.entity.ConfirmationToken;
-import com.example.thymeleaf.event.EmailSender;
+//import com.example.thymeleaf.event.EmailSender;
 import com.example.thymeleaf.event.RegistrationCompleteEvent;
 import com.example.thymeleaf.model.PasswordModel;
 import com.example.thymeleaf.model.RegistrationRequest;
@@ -10,6 +10,7 @@ import com.example.thymeleaf.services.App_User_Service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @RestController @AllArgsConstructor @Slf4j
 public class AppUserController {
 
-    private EmailSender emailSender;
+//    private EmailSender emailSender;
     private App_User_Service app_user_service;
     private ApplicationEventPublisher publisher;
 
@@ -97,8 +98,8 @@ public class AppUserController {
     private String passwordResetTokenMail(App_Users app_users, String applicationUrl, String token) {
         String url = applicationUrl+"/saveNewPassword?token="+token;
 
-        emailSender.sendMailTo(
-                app_users.getEmail(), "Open To Verify Account", emailSender.resetPassword(url));
+//        emailSender.sendMailTo(
+//                app_users.getEmail(), "Open To Verify Account", emailSender.resetPassword(url));
 
         log.info("Click the link provided to reset your password: "+ url);
         log.info("Mail sent successfully");
@@ -108,8 +109,8 @@ public class AppUserController {
     private void resendVerificationTokenMail(App_Users app_user, String applicationUrl, ConfirmationToken confirmationToken) {
         String url = applicationUrl+"/resendVerifyToken?token="+ confirmationToken.getToken();
 
-        emailSender.sendMailTo(
-                app_user.getEmail(), "Open To Verify Account", emailSender.mailBody(url));
+//        emailSender.sendMailTo(
+//                app_user.getEmail(), "Open To Verify Account", emailSender.mailBody(url));
 
         log.info("Click the link provided to verify your account: "+ url);
         log.info("Mail sent successfully");
@@ -122,5 +123,11 @@ public class AppUserController {
     @GetMapping("/")
     public String defaultPage() {
         return "WELCOME TO THE DEFAULT PAGE";
+    }
+
+    @GetMapping("/userAccess")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public String accessPage() {
+        return "AUTHORIZED TO HAVE ACCESS";
     }
 }
